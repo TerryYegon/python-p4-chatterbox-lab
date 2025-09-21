@@ -7,6 +7,16 @@ from faker import Faker
 from app import app
 from models import db, Message
 
+with app.app_context():
+    Message.query.delete()
+
+    m1 = Message(body="Hello world!", username="Alice")
+    m2 = Message(body="This is a test message.", username="Bob")
+
+    db.session.add_all([m1, m2])
+    db.session.commit()
+
+
 fake = Faker()
 
 usernames = [fake.first_name() for i in range(4)]
